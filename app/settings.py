@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "debug_toolbar",
     # Local
-    "accounts",
-    "pages",
+    "app.accounts",
+    "app.core",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
