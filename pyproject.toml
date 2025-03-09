@@ -14,5 +14,30 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+  "pre-commit>=4.1.0",
+  "pytest>=8.3.5",
+  "ruff>=0.9.10",
   "typing_extensions ~=4.12",
 ]
+
+[tool.ruff]
+lint.select = [
+  "E",   # pycodestyle
+  "F",   # pyflakes
+  "W",   # pycodestyle
+  "B",   # bugbear
+  "I",   # isort
+  "RUF", # ruff
+  "A",   # builtins
+  "C4",  # comprehension
+  "UP",  # pyupgrade
+]
+
+lint.ignore = [
+  "E501", # ruff format handles line length
+  "F401", # allow unused imports in the template
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/migrations/*.py" = ["RUF012"] # ignore mutable class attributes
+"tests/settings.py" = ["F403", "F405"] # ignore star imports
