@@ -10,7 +10,7 @@ https://github.com/user-attachments/assets/8698e9dd-1794-4f96-9c3f-85add17e330b
 
 ## 🚀 Features
 - Django 5.1 & Python 3.13
-- Installation via [uv](https://github.com/astral-sh/uv), [Pip](https://pypi.org/project/pip/) or [Docker](https://www.docker.com/)
+- Installation via [uv](https://github.com/astral-sh/uv)
 - User authentication--log in, sign up, password reset--via [django-allauth](https://github.com/pennersr/django-allauth)
 - Static files configured with [Whitenoise](http://whitenoise.evans.io/en/stable/index.html)
 - Styling with [Bootstrap v5](https://getbootstrap.com/)
@@ -21,8 +21,6 @@ https://github.com/user-attachments/assets/8698e9dd-1794-4f96-9c3f-85add17e330b
 ## Table of Contents
 * **[Installation](#installation)**
   * [uv](#uv)
-  * [Pip](#pip)
-  * [Docker](#docker)
 * [Next Steps](#next-steps)
 * [Contributing](#contributing)
 * [Support](#support)
@@ -52,53 +50,6 @@ $ uv run manage.py runserver
 # Load the site at http://127.0.0.1:8000 or http://127.0.0.1:8000/admin for the admin
 ```
 
-### Pip
-To use Pip, create a new virtual environment and then install all packages hosted in `requirements.txt`. Run `migrate` to configure the initial database. and `createsuperuser` to create a new superuser account for accessing the admin. Execute the `runserver` commandt o start up the local server.
-
-```
-(.venv) $ pip install -r requirements.txt
-(.venv) $ python manage.py migrate
-(.venv) $ python manage.py createsuperuser
-(.venv) $ python manage.py runserver
-# Load the site at http://127.0.0.1:8000 or http://127.0.0.1:8000/admin for the admin
-```
-
-### Docker
-
-To use Docker with PostgreSQL as the database update the `DATABASES` section of `django_project/settings.py` to reflect the following:
-
-```python
-# django_project/settings.py
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "db",  # set in docker-compose.yml
-        "PORT": 5432,  # default postgres port
-    }
-}
-```
-
-The `INTERNAL_IPS` configuration in `django_project/settings.py` must be also be updated:
-
-```python
-# config/settings.py
-# django-debug-toolbar
-import socket
-hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
-```
-
-And then proceed to build the Docker image, run the container, and execute the standard commands within Docker.
-
-```
-$ docker compose up -d --build
-$ docker compose exec web python manage.py migrate
-$ docker compose exec web python manage.py createsuperuser
-# Load the site at http://127.0.0.1:8000 or http://127.0.0.1:8000/admin for the admin
-```
 
 ## Next Steps
 
